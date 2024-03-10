@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  node:
+    build: .
+    env_file: .env
+    ports:
+      - "82:3000"
+    volumes:
+      - ./app:/home/node/app
+      - /home/node/app/node_modules
+  bd:
+    image: mariadb:latest
+    env_file: .env
+    volumes:
+      - /mariadb/setup.sql:/docker-entrypoint-initdbd/setup.sql
+      - dados_mariadb:/var/lib/mysql
+volumes:
+  dados_mariadb:
+  node_modules:

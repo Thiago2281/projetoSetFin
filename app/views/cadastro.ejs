@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Cadastro</title>
+  <%- include('../views/head'); %>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <%- include('../views/nav'); %>
+    <section id="app">
+      <section class="bg-light pt-4">
+        <section id="contact">
+          <div class="text-center">
+            <h2>Cadastro de liquidações</h2>
+            <p class="lead">Inclua abaixo os dados da liquidação a ser cadastrado</p>
+          </div>
+          <form method="POST" action="/cadastro" class="row mx-auto pt-2" style="width: 900px;">
+            <div class="row">
+              <div class="col pt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="opcao" id="flexRadioDefault1" value="OPTANTE PELO SIMPLES NACIONAL" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Optante pelo simples nacional
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="opcao" id="flexRadioDefault2" value="NAO OPTANTE PELO SIMPLES NACIONAL" onchange="admSelectCheck(this.select);">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Não optante pelo simples nacional
+                  </label>
+                </div>
+              </div>
+              <div class="col pt-2">
+                <label for="tipo" class="form-label">Tipo de material:</label>
+                <select id="tipo" name="tipo" id="tipo" class="form-select">
+                  <option selected>Escolha...</option>
+                  <option>MATERIAL DE CONSUMO</option>
+                  <option>MATERIAL PERMANENTE</option>
+                  <option>MATERIAL DE COOPERATIVA</option>
+                  <option>MATERIAL DE COOPERATIVA (PNAE)</option>
+                  <option>MATERIAL DE PNAE</option>
+                  <option>SERVICO</option>
+                </select>
+              </div>
+              <div class="col pt-2">
+                <label for="cnpj" class="form-label">CNPJ</label>
+                <input type="text" name="cnpj" class="form-control" id="cnpj" maxlength="14" minlength="14">
+              </div>
+            </div>
+            <!-- linha oculta -->
+            <div class="row" id="admDivCheck1" style="display:none;">   
+              <div class="col pt-2">
+                <label for="percentual1" class="form-label">Percentual</label>
+                <input type="number" v-model="percentual1" name="percentual1" class="form-control" id="percentual1">
+              </div>
+              <div class="col pt-2">
+                <label for="valorliquido" class="form-label">Valor líquido</label>
+                <input type="number" v-model="valorLiq" name="valorliquido" class="form-control" id="valorliquido">
+              </div>
+              <div class="col pt-2">
+                <table>
+                  <tr>
+                    <th class="px-3">Valor Bruto</th>                 
+                  </tr>
+                  <tbody>
+                    <tr>
+                    <tr>
+                      <td>{{calcular()}}</td>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- termino linha oculta -->
+            <div class="row">  
+              <div class="col pt-2">
+                <label for="favorecido" class="form-label">Favorecido</label>
+                <input type="text" name="favorecido" class="form-control" id="favorecido">
+              </div>
+              <div class="col pt-2">
+                <label for="tipoNF" class="form-label">Tipo NF</label>
+                <select id="tipoNF" name="tipoNF" id="tipoNF" class="form-select">
+                  <option selected>Escolha...</option>
+                  <option>NFe</option>
+                  <option>NFSe</option>
+                  <option>Fat</option>
+                </select>
+              </div>
+              <div class="col pt-2">
+                <label for="numero" class="form-label">Número NF</label>
+                <input type="text" name="numero" class="form-control" id="numero">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col pt-2">
+                <label for="valorBruto" class="form-label">Valor bruto (R$ XX,00)</label>
+                <input type="text" name="valorBruto" class="form-control" id="valorBruto">
+              </div>
+              <div class="col pt-2">
+                <label for="dataNF" class="form-label">Data NF</label>
+                <input type="date" name="dataNF" class="form-control" id="dataNF">
+              </div>
+              <div class="col pt-2">
+                <label for="dataAteste" class="form-label">Data Ateste NF</label>
+                <input type="date" name="dataAteste" class="form-control" id="dataAteste">
+              </div>
+              <div class="col pt-2">
+                <label for="dataVenc" class="form-label">Data Vencimento NF</label>
+                <input type="date" name="dataVenc" class="form-control" id="dataVenc">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col pt-2">
+                <label for="anoEmpenho" class="form-label">Ano do empenho</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="anoEmpenho" id="flexRadioDefault1" value="2023">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    2023
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="anoEmpenho" id="flexRadioDefault2" value="2024"
+                    checked>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    2024
+                  </label>
+                </div>
+              </div>
+              <div class="col pt-2">
+                <label for="numeroEmpenho" class="form-label">Número do empenho</label>
+                <input type="text" name="numeroEmpenho" class="form-control" id="numeroEmpenho" maxlength="3" minlength="3">
+              </div>
+              <div class="col pt-2">
+                <label for="subitem" class="form-label">Subitem</label>
+                <input type="text" name="subitem" class="form-control" id="subitem" maxlength="2"
+                  minlength="1">
+              </div>
+              
+              <div class="col pt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gridCheck1" onchange="admSelectCheck1(this.select);" >
+                  <label class="form-check-label" for="gridCheck1">
+                    Concessionária
+                  </label>           
+                </div>
+              </div>
+              
+            
+            </div>
+            <!-- linha oculta -->
+            <div class="row" id="admDivCheck" style="display:none;">   
+              <div class="col pt-2">
+                <label for="codRecolhimento" class="form-label">Cod Recolhimento</label>
+                <input type="number" name="codRecolhimento" class="form-control" id="codRecolhimento" maxlength="4" minlength="4">
+              </div>
+              <div class="col pt-2">
+                <label for="codReceita" class="form-label">Cod Receita (17000)</label>
+                <input type="number" name="codReceita" class="form-control" id="codReceita" maxlength="5"
+                  minlength="5">
+              </div>
+              <div class="col pt-2">
+                <label for="percentual" class="form-label">Percentual</label>
+                <input type="text" name="percentual" class="form-control" id="percentual">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col pt-2 mb-4 text-center">
+
+                <button type="submit" class="btn btn-secondary">Enviar</button>
+              </div>
+              <a href="#sidegaleria"  data-bs-toggle="offcanvas" role="button" aria-controls="sidebar">
+                Consultar Códigos da Receita
+              </a>
+            </div>
+            
+          </form>
+        </section>
+
+        <!-- side panel / offcanvas -->
+  <div class="offcanvas offcanvas-end w-75" tabindex="-1" id="sidegaleria" aria-labelledby="sidebar-label">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidegaleria">Documentação</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      
+            <img src="/_img/codigos receita.jpg" style="display: block; margin-left: auto; margin-right: auto; width: 100%;"  class="d-block w-100" alt="...">
+
+          
+          <!-- <div class="carousel-item" data-bs-interval="2000">
+            <img src="./Imagens/comitiva.webp" style="max-width: 800px; display: block; margin-left: auto; margin-right: auto; width: 50%;"  class="d-block w-100" alt="...">
+
+          </div>
+          <div class="carousel-item">
+            <img src="./Imagens/roosevelt-e-rondon.webp" style="max-width: 800px; display: block; margin-left: auto; margin-right: auto; width: 50%;" class="d-block w-100" alt="...">          
+
+          </div> -->
+ 
+      </div>
+            
+    </div>
+  </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+          crossorigin="anonymous"></script>
+        <footer>
+          <%- include('../views/footer'); %>
+        </footer>
+</body>
+</html>
+
+<script language="javascript">
+  function admSelectCheck(nameSelect){
+      if(nameSelect){
+          admOptionValue = document.getElementById("flexRadioDefault2").value;
+          if(admOptionValue = "NAO OPTANTE PELO SIMPLES"){
+              document.getElementById("admDivCheck").style.display = "";
+          }
+          else{
+              document.getElementById("admDivCheck").style.display = "none";
+          }
+      }
+      else{
+          document.getElementById("admDivCheck").style.display = "none";
+      }
+  }
+  function admSelectCheck1(nameSelect){
+      if(nameSelect){
+          admOptionValue = document.getElementById("gridCheck1").value;
+          if(admOptionValue = "Concessionária"){
+              document.getElementById("admDivCheck1").style.display = "";
+          }
+          else{
+              document.getElementById("admDivCheck1").style.display = "none";
+          }
+      }
+      else{
+          document.getElementById("admDivCheck1").style.display = "none";
+      }
+  }
+  </script>
+  <script type="module">
+    Vue.createApp({
+      setup() {
+        const valorLiq = Vue.ref('')
+        const percentual1 = Vue.ref('')
+        function calcular() {
+          const valorBruto = this.valorLiq / (1 - this.percentual1 / 100);
+          return valorBruto.toFixed(2); 
+        };
+        return {
+          valorLiq,
+          percentual1,
+          calcular,
+        }
+    }
+  }).mount('#app')
+  </script>

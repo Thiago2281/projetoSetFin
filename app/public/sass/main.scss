@@ -1,0 +1,35 @@
+// custom variable values
+$primary: #070d23;
+$light: #fbf5e5;
+
+// import the functions & variables
+@import "../node_modules/bootstrap/scss/_functions";
+@import "../node_modules/bootstrap/scss/_variables";
+
+// custom theme colours
+$custom-theme-colors: (
+  "especial": #070d23,
+  "altdark": #522192
+);
+
+// $zindex-offcanvas:5000;
+// $offcanvas-vertical-height: 100vh;
+
+.offcanvas-size-xl {
+  --#{$prefix}offcanvas-width: min(95vw, 600px) !important;
+}
+.offcanvas-size-xxl {
+  --#{$prefix}offcanvas-width: min(95vw, 90vw) !important;
+}
+.offcanvas-size-md { /* add Responsivenes to default offcanvas */
+  --#{$prefix}offcanvas-width: min(95vw, 400px) !important;
+}
+.offcanvas-size-sm {
+  --#{$prefix}offcanvas-width: min(95vw, 250px) !important;
+}
+
+// merge the maps to add new theme colors
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+// import bootstrap
+@import '../node_modules/bootstrap/scss/bootstrap';
