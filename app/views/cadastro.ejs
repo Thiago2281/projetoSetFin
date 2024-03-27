@@ -48,6 +48,14 @@
                 <label for="cnpj" class="form-label">CNPJ</label>
                 <input type="text" name="cnpj" class="form-control" id="cnpj" maxlength="14" minlength="14">
               </div>
+              <div class="col pt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gridCheck1" onchange="admSelectCheck1(this.select);" >
+                  <label class="form-check-label" for="gridCheck1">
+                    Concessionária
+                  </label>           
+                </div>
+              </div>
             </div>
             <!-- linha oculta -->
             <div class="row" id="admDivCheck1" style="display:none;">   
@@ -70,6 +78,10 @@
                       <td>{{calcular()}}</td>
                   </tbody>
                 </table>
+              </div>
+              <div class="col pt-2">
+                <label for="referente" class="form-label">Ref:</label>
+                <input type="text" name="referente" class="form-control" placeholder="Ex: MAR/2024" id="referente">
               </div>
             </div>
             <!-- termino linha oculta -->
@@ -128,7 +140,7 @@
                 </div>
               </div>
               <div class="col pt-2">
-                <label for="numeroEmpenho" class="form-label">Número do empenho</label>
+                <label for="numeroEmpenho" class="form-label">Nr do empenho</label>
                 <input type="text" name="numeroEmpenho" class="form-control" id="numeroEmpenho" maxlength="3" minlength="3">
               </div>
               <div class="col pt-2">
@@ -136,16 +148,32 @@
                 <input type="text" name="subitem" class="form-control" id="subitem" maxlength="2"
                   minlength="1">
               </div>
-              
-              <div class="col pt-5">
+              <div class="col pt-2">
+                <label for="ugEmpenho" class="form-label">UG do empenho</label>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="gridCheck1" onchange="admSelectCheck1(this.select);" >
-                  <label class="form-check-label" for="gridCheck1">
-                    Concessionária
-                  </label>           
+                  <input class="form-check-input" type="radio" name="ugEmpenho" id="flexRadioDefault1" value="160046" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    160046
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ugEmpenho" id="flexRadioDefault2" value="167046">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    167046
+                  </label>
                 </div>
               </div>
               
+
+
+
+              <div class="col pt-2">
+                <label for="contrato" class="form-label">Contrato:</label>
+                <select id="contrato" name="contrato" id="contrato" class="form-select">
+                  <option selected>Sem contrato</option>
+                  <option>Com contrato</option>
+                </select>
+              </div>
             
             </div>
             <!-- linha oculta -->

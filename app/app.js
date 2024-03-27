@@ -73,14 +73,16 @@ app.post('/cadastro', async (req, res) => {
   var codRecolhimento = req.body.codRecolhimento;
   var codReceita = req.body.codReceita;
   var percentual = req.body.percentual;
-
+  var contrato = req.body.contrato;
+  var ug = req.body.ugEmpenho;
 
   //-------------------------SERVICO-------------------------------------
   if (req.body.tipo == 'SERVICO') {
     var situacao = 'DSP001';
     var contaEstoque = '332310200';
-    var ug = '160046';
+    var ugCC = '160046';
     var cc = 'F020404S';
+    var referente = req.body.referente;
     let dataHoje = new Date();
     var mes1 = dataHoje.getMonth() + 1;
     if (mes1 < 10) {
@@ -97,7 +99,7 @@ app.post('/cadastro', async (req, res) => {
           if (error) {
             return reject('Erro: ' + error.message)
           }
-          var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + [resultado[0].descricao] + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + '\nEMPRESA ' + opcao
+          var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + [resultado[0].descricao] + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + ' ' + referente + '\nEMPRESA ' + opcao
           console.log(descricao)
           return resolve(descricao)
         });
@@ -116,7 +118,7 @@ app.post('/cadastro', async (req, res) => {
       label: cnpj,
       value: 'field2_name'
     }, {
-      label: favorecido,
+      label: contrato,
       value: 'field1_name'
     }, {
       label: nf,
@@ -173,10 +175,14 @@ app.post('/cadastro', async (req, res) => {
       label: cc,
       value: 'field2_name'
     }, {
-      label: ug,
+      label: ugCC,
       value: 'field2_name'
     }, {
       label: ano,
+      value: 'field2_name'
+    }
+    , {
+      label: ug,
       value: 'field2_name'
     }]
 
@@ -224,7 +230,7 @@ app.post('/cadastro', async (req, res) => {
       label: cnpj,
       value: 'field2_name'
     }, {
-      label: favorecido,
+      label: contrato,
       value: 'field1_name'
     }, {
       label: nf,
@@ -281,10 +287,14 @@ app.post('/cadastro', async (req, res) => {
       label: cc,
       value: 'field2_name'
     }, {
-      label: ug,
+      label: ugCC,
       value: 'field2_name'
     }, {
       label: ano,
+      value: 'field2_name'
+    }
+    , {
+      label: ug,
       value: 'field2_name'
     }]
 
@@ -330,7 +340,7 @@ app.post('/cadastro', async (req, res) => {
       label: cnpj,
       value: 'field2_name'
     }, {
-      label: favorecido,
+      label: contrato,
       value: 'field1_name'
     }, {
       label: nf,
@@ -387,10 +397,14 @@ app.post('/cadastro', async (req, res) => {
       label: cc,
       value: 'field2_name'
     }, {
-      label: ug,
+      label: ugCC,
       value: 'field2_name'
     }, {
       label: ano,
+      value: 'field2_name'
+    }
+    , {
+      label: ug,
       value: 'field2_name'
     }]
 
@@ -439,7 +453,7 @@ app.post('/cadastro', async (req, res) => {
       label: cnpj,
       value: 'field2_name'
     }, {
-      label: favorecido,
+      label: contrato,
       value: 'field1_name'
     }, {
       label: nf,
@@ -496,10 +510,14 @@ app.post('/cadastro', async (req, res) => {
       label: cc,
       value: 'field2_name'
     }, {
-      label: ug,
+      label: ugCC,
       value: 'field2_name'
     }, {
       label: ano,
+      value: 'field2_name'
+    }
+    , {
+      label: ug,
       value: 'field2_name'
     }]
 
@@ -546,7 +564,7 @@ app.post('/cadastro', async (req, res) => {
       label: cnpj,
       value: 'field2_name'
     }, {
-      label: favorecido,
+      label: contrato,
       value: 'field1_name'
     }, {
       label: nf,
@@ -603,10 +621,14 @@ app.post('/cadastro', async (req, res) => {
       label: cc,
       value: 'field2_name'
     }, {
-      label: ug,
+      label: ugCC,
       value: 'field2_name'
     }, {
       label: ano,
+      value: 'field2_name'
+    }
+    , {
+      label: ug,
       value: 'field2_name'
     }]
 
@@ -652,7 +674,7 @@ app.post('/cadastro', async (req, res) => {
       label: cnpj,
       value: 'field2_name'
     }, {
-      label: favorecido,
+      label: contrato,
       value: 'field1_name'
     }, {
       label: nf,
@@ -709,10 +731,14 @@ app.post('/cadastro', async (req, res) => {
       label: cc,
       value: 'field2_name'
     }, {
-      label: ug,
+      label: ugCC,
       value: 'field2_name'
     }, {
       label: ano,
+      value: 'field2_name'
+    }
+    , {
+      label: ug,
       value: 'field2_name'
     }]
 
