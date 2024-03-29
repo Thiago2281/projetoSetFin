@@ -11,7 +11,7 @@ const pool = mysql.createPool({
   host: 'bd',
   user: 'root',
   password: 'senha_root',
-  database: process.env.MARIADB_DATABASE,
+  database: 'natureza_despesa'
 });
 module.exports = pool;
 const fs = require('fs');
