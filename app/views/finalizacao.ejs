@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Finalizacao</title>
+  <%- include('../views/head'); %>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <%- include('../views/nav'); %>
+    <section id="app">
+      <section class="bg-light pt-4">
+        <section id="contact">
+          <div class="text-center">
+            <h2>Liquidações lancadas hoje</h2>
+            <p class="lead">Abaixo os dados das liquidacoes</p>
+            <table class="table table-hover" style="margin: 0 auto; width: 70%;">
+              <thead class="table-dark">    
+                  <tr>
+                      <th style="width: 10%">CNPJ</th>
+                      <th style="width: 70%">Descricao</th>
+                      <th style="width: 10%">Valor Bruto</th>
+                      <th style="width: 10%">UG</th>
+                  </tr>
+              </thead>
+              <tbody>
+          <% for (liquidacao of liquidacoes){ %>
+                  <tr>    
+                      <td><%- liquidacao.cnpj %></td>
+                      <td><%- liquidacao.descricao %></td>
+                      <td><%- liquidacao.valorBruto %></td>
+                      <td><%- liquidacao.ug %></td>
+                  </tr>
+          <% } %>
+              </tbody>
+          </table>
+
+          <button type="button" id="btnDownloadCsv">Download CSV</button>
+
+          </div>
+          
+        </section>
+      </section>
+    </section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/json2csv"></script>
+<script>
+
+var data = <%- JSON.stringify(liquidacoes) %>
+  console.log(data)
+  const btnDownloadCsv = document.getElementById("btnDownloadCsv");
+
+  btnDownloadCsv.addEventListener("click", () => {
+    downloadCsv("liquidacoes.csv", csvData);
+  });
+
+  function downloadCsv(filename, csvContent) {
+    // Create CSV data URI
+    const csvDataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+
+    // Create download link and trigger download
+    const element = document.createElement("a");
+    element.setAttribute("href", csvDataUri);
+    element.setAttribute("download", filename);
+    element.style.display = "none";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+const objectToCsv = function (data) {
+     
+     const csvRows = [];
+  
+     /* Get headers as every csv data format 
+     has header (head means column name)
+     so objects key is nothing but column name 
+     for csv data using Object.key() function.
+     We fetch key of object as column name for 
+     csv */
+     const headers = Object.keys(data[0]);
+  
+     /* Using push() method we push fetched 
+        data into csvRows[] array */
+     csvRows.push(headers.join(','));
+  
+     // Loop to get value of each objects key
+     for (const row of data) {
+         const values = headers.map(header => {
+             const val = row[header]
+             return `"${val}"`;
+         });
+  
+         // To add, separator between each value
+         csvRows.push(values.join(','));
+     }
+  
+     /* To add new line for each objects values
+        and this return statement array csvRows
+        to this function.*/
+     return csvRows.join('\n');
+ };
+  
+
+ // Data passed as parameter 
+ const csvData = objectToCsv(data);
+ console.log(csvData); 
+
+
+</script>
+<footer>
+  <%- include('../views/footer'); %>
+</footer>
+</body>
+</html>
+

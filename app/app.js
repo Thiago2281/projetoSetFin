@@ -25,12 +25,13 @@ app.use(express.static('public'));
 /* usar arquivos ejs como renderização */
 app.set('view engine', 'ejs');
 
-app.get('/cadastro', (req, res) => {
-  res.render('cadastro');  //{livro:{}});
+app.get('/index', (req, res) => {
+  res.render('index');  
 })
-
+let liquidacoes=[]
 // /* rota para a cadastrar novos itens */
-app.post('/cadastro', async (req, res) => {
+app.post('/index', async (req, res) => {
+  
   console.log(req.body);
   var situacao = 'DSP101';
   var contaEstoque = '115610100';
@@ -108,97 +109,10 @@ app.post('/cadastro', async (req, res) => {
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
 
-    const fields = [{
-      label: opcao,
-      value: 'field1_name'
-    }, {
-      label: tipo,
-      value: 'field2_name'
-    }, {
-      label: cnpj,
-      value: 'field2_name'
-    }, {
-      label: contrato,
-      value: 'field1_name'
-    }, {
-      label: nf,
-      value: 'field2_name'
-    }, {
-      label: valorBruto,
-      value: 'field2_name'
-    }, {
-      label: formatteddataNf,
-      value: 'field1_name'
-    }, {
-      label: formatteddataAt,
-      value: 'field2_name'
-    }, {
-      label: formatteddataVenc,
-      value: 'field2_name'
-    }, {
-      label: descricao,
-      value: 'field1_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: empenho,
-      value: 'field2_name'
-    }, {
-      label: subitem,
-      value: 'field1_name'
-    }, {
-      label: contaEstoque,
-      value: 'field2_name'
-    }, {
-      label: contaApagar,
-      value: 'field2_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: siorg,
-      value: 'field2_name'
-    }, {
-      label: mes1,
-      value: 'field2_name'
-    }, {
-      label: codRecolhimento,
-      value: 'field2_name'
-    }, {
-      label: codReceita,
-      value: 'field2_name'
-    }, {
-      label: percentual,
-      value: 'field2_name'
-    }, {
-      label: cc,
-      value: 'field2_name'
-    }, {
-      label: ugCC,
-      value: 'field2_name'
-    }, {
-      label: ano,
-      value: 'field2_name'
-    }
-    , {
-      label: ug,
-      value: 'field2_name'
-    }]
-
-    async function appendToCSV(fields, res) {
-      const json2csv = new Parser({ fields: fields })
-      try {
-        const csv = json2csv.parse(fields) + '\n';
-        await fs.appendFileSync('liquidacao.csv', csv);
-        res.redirect('/cadastro')
-      } catch (error) {
-        console.log('error:', error.message)
-        res.status(500).send(error.message)
-      }
-    }
-
-    await appendToCSV(fields, res);
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    liquidacoes.push(liquidacao);
+    console.log(liquidacoes)
+    res.redirect('/index')
   }
 
   if (req.body.tipo == 'MATERIAL PERMANENTE') {
@@ -219,98 +133,10 @@ app.post('/cadastro', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-
-    const fields = [{
-      label: opcao,
-      value: 'field1_name'
-    }, {
-      label: tipo,
-      value: 'field2_name'
-    }, {
-      label: cnpj,
-      value: 'field2_name'
-    }, {
-      label: contrato,
-      value: 'field1_name'
-    }, {
-      label: nf,
-      value: 'field2_name'
-    }, {
-      label: valorBruto,
-      value: 'field2_name'
-    }, {
-      label: formatteddataNf,
-      value: 'field1_name'
-    }, {
-      label: formatteddataAt,
-      value: 'field2_name'
-    }, {
-      label: formatteddataVenc,
-      value: 'field2_name'
-    }, {
-      label: descricao,
-      value: 'field1_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: empenho,
-      value: 'field2_name'
-    }, {
-      label: subitem,
-      value: 'field1_name'
-    }, {
-      label: contaEstoque,
-      value: 'field2_name'
-    }, {
-      label: contaApagar,
-      value: 'field2_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: siorg,
-      value: 'field2_name'
-    }, {
-      label: mes1,
-      value: 'field2_name'
-    }, {
-      label: codRecolhimento,
-      value: 'field2_name'
-    }, {
-      label: codReceita,
-      value: 'field2_name'
-    }, {
-      label: percentual,
-      value: 'field2_name'
-    }, {
-      label: cc,
-      value: 'field2_name'
-    }, {
-      label: ugCC,
-      value: 'field2_name'
-    }, {
-      label: ano,
-      value: 'field2_name'
-    }
-    , {
-      label: ug,
-      value: 'field2_name'
-    }]
-
-    async function appendToCSV(fields, res) {
-      const json2csv = new Parser({ fields: fields })
-      try {
-        const csv = json2csv.parse(fields) + '\n';
-        await fs.appendFileSync('liquidacao.csv', csv);
-        res.redirect('/cadastro')
-      } catch (error) {
-        console.log('error:', error.message)
-        res.status(500).send(error.message)
-      }
-    }
-
-    await appendToCSV(fields, res);
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    liquidacoes.push(liquidacao);
+    console.log(liquidacoes)
+    res.redirect('/index')
   }
 
   if (req.body.tipo == 'MATERIAL DE CONSUMO') {
@@ -329,99 +155,10 @@ app.post('/cadastro', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-
-    const fields = [{
-      label: opcao,
-      value: 'field1_name'
-    }, {
-      label: tipo,
-      value: 'field2_name'
-    }, {
-      label: cnpj,
-      value: 'field2_name'
-    }, {
-      label: contrato,
-      value: 'field1_name'
-    }, {
-      label: nf,
-      value: 'field2_name'
-    }, {
-      label: valorBruto,
-      value: 'field2_name'
-    }, {
-      label: formatteddataNf,
-      value: 'field1_name'
-    }, {
-      label: formatteddataAt,
-      value: 'field2_name'
-    }, {
-      label: formatteddataVenc,
-      value: 'field2_name'
-    }, {
-      label: descricao,
-      value: 'field1_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: empenho,
-      value: 'field2_name'
-    }, {
-      label: subitem,
-      value: 'field1_name'
-    }, {
-      label: contaEstoque,
-      value: 'field2_name'
-    }, {
-      label: contaApagar,
-      value: 'field2_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: siorg,
-      value: 'field2_name'
-    }, {
-      label: mes1,
-      value: 'field2_name'
-    }, {
-      label: codRecolhimento,
-      value: 'field2_name'
-    }, {
-      label: codReceita,
-      value: 'field2_name'
-    }, {
-      label: percentual,
-      value: 'field2_name'
-    }, {
-      label: cc,
-      value: 'field2_name'
-    }, {
-      label: ugCC,
-      value: 'field2_name'
-    }, {
-      label: ano,
-      value: 'field2_name'
-    }
-    , {
-      label: ug,
-      value: 'field2_name'
-    }]
-
-    async function appendToCSV(fields, res) {
-      const json2csv = new Parser({ fields: fields })
-      try {
-        const csv = json2csv.parse(fields) + '\n';
-        await fs.appendFileSync('liquidacao.csv', csv);
-        res.redirect('/cadastro')
-      } catch (error) {
-        console.log('error:', error.message)
-        res.status(500).send(error.message)
-      }
-    }
-
-    await appendToCSV(fields, res);
-
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    liquidacoes.push(liquidacao);
+    console.log(liquidacoes)
+    res.redirect('/index')
 
   }
 
@@ -442,98 +179,10 @@ app.post('/cadastro', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-
-    const fields = [{
-      label: opcao,
-      value: 'field1_name'
-    }, {
-      label: tipo,
-      value: 'field2_name'
-    }, {
-      label: cnpj,
-      value: 'field2_name'
-    }, {
-      label: contrato,
-      value: 'field1_name'
-    }, {
-      label: nf,
-      value: 'field2_name'
-    }, {
-      label: valorBruto,
-      value: 'field2_name'
-    }, {
-      label: formatteddataNf,
-      value: 'field1_name'
-    }, {
-      label: formatteddataAt,
-      value: 'field2_name'
-    }, {
-      label: formatteddataVenc,
-      value: 'field2_name'
-    }, {
-      label: descricao,
-      value: 'field1_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: empenho,
-      value: 'field2_name'
-    }, {
-      label: subitem,
-      value: 'field1_name'
-    }, {
-      label: contaEstoque,
-      value: 'field2_name'
-    }, {
-      label: contaApagar,
-      value: 'field2_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: siorg,
-      value: 'field2_name'
-    }, {
-      label: mes1,
-      value: 'field2_name'
-    }, {
-      label: codRecolhimento,
-      value: 'field2_name'
-    }, {
-      label: codReceita,
-      value: 'field2_name'
-    }, {
-      label: percentual,
-      value: 'field2_name'
-    }, {
-      label: cc,
-      value: 'field2_name'
-    }, {
-      label: ugCC,
-      value: 'field2_name'
-    }, {
-      label: ano,
-      value: 'field2_name'
-    }
-    , {
-      label: ug,
-      value: 'field2_name'
-    }]
-
-    async function appendToCSV(fields, res) {
-      const json2csv = new Parser({ fields: fields })
-      try {
-        const csv = json2csv.parse(fields) + '\n';
-        await fs.appendFileSync('liquidacao.csv', csv);
-        res.redirect('/cadastro')
-      } catch (error) {
-        console.log('error:', error.message)
-        res.status(500).send(error.message)
-      }
-    }
-
-    await appendToCSV(fields, res);
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    liquidacoes.push(liquidacao);
+    console.log(liquidacoes)
+    res.redirect('/index')
   };
 
   if (req.body.tipo == 'MATERIAL DE COOPERATIVA (PNAE)') {
@@ -553,98 +202,10 @@ app.post('/cadastro', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-
-    const fields = [{
-      label: opcao,
-      value: 'field1_name'
-    }, {
-      label: tipo,
-      value: 'field2_name'
-    }, {
-      label: cnpj,
-      value: 'field2_name'
-    }, {
-      label: contrato,
-      value: 'field1_name'
-    }, {
-      label: nf,
-      value: 'field2_name'
-    }, {
-      label: valorBruto,
-      value: 'field2_name'
-    }, {
-      label: formatteddataNf,
-      value: 'field1_name'
-    }, {
-      label: formatteddataAt,
-      value: 'field2_name'
-    }, {
-      label: formatteddataVenc,
-      value: 'field2_name'
-    }, {
-      label: descricao,
-      value: 'field1_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: empenho,
-      value: 'field2_name'
-    }, {
-      label: subitem,
-      value: 'field1_name'
-    }, {
-      label: contaEstoque,
-      value: 'field2_name'
-    }, {
-      label: contaApagar,
-      value: 'field2_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: siorg,
-      value: 'field2_name'
-    }, {
-      label: mes1,
-      value: 'field2_name'
-    }, {
-      label: codRecolhimento,
-      value: 'field2_name'
-    }, {
-      label: codReceita,
-      value: 'field2_name'
-    }, {
-      label: percentual,
-      value: 'field2_name'
-    }, {
-      label: cc,
-      value: 'field2_name'
-    }, {
-      label: ugCC,
-      value: 'field2_name'
-    }, {
-      label: ano,
-      value: 'field2_name'
-    }
-    , {
-      label: ug,
-      value: 'field2_name'
-    }]
-
-    async function appendToCSV(fields, res) {
-      const json2csv = new Parser({ fields: fields })
-      try {
-        const csv = json2csv.parse(fields) + '\n';
-        await fs.appendFileSync('liquidacao.csv', csv);
-        res.redirect('/cadastro')
-      } catch (error) {
-        console.log('error:', error.message)
-        res.status(500).send(error.message)
-      }
-    }
-
-    await appendToCSV(fields, res);
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    liquidacoes.push(liquidacao);
+    console.log(liquidacoes)
+    res.redirect('/index')
   }
 
   if (req.body.tipo == 'MATERIAL DE COOPERATIVA') {
@@ -663,101 +224,20 @@ app.post('/cadastro', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-
-    const fields = [{
-      label: opcao,
-      value: 'field1_name'
-    }, {
-      label: tipo,
-      value: 'field2_name'
-    }, {
-      label: cnpj,
-      value: 'field2_name'
-    }, {
-      label: contrato,
-      value: 'field1_name'
-    }, {
-      label: nf,
-      value: 'field2_name'
-    }, {
-      label: valorBruto,
-      value: 'field2_name'
-    }, {
-      label: formatteddataNf,
-      value: 'field1_name'
-    }, {
-      label: formatteddataAt,
-      value: 'field2_name'
-    }, {
-      label: formatteddataVenc,
-      value: 'field2_name'
-    }, {
-      label: descricao,
-      value: 'field1_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: empenho,
-      value: 'field2_name'
-    }, {
-      label: subitem,
-      value: 'field1_name'
-    }, {
-      label: contaEstoque,
-      value: 'field2_name'
-    }, {
-      label: contaApagar,
-      value: 'field2_name'
-    }, {
-      label: situacao,
-      value: 'field2_name'
-    }, {
-      label: siorg,
-      value: 'field2_name'
-    }, {
-      label: mes1,
-      value: 'field2_name'
-    }, {
-      label: codRecolhimento,
-      value: 'field2_name'
-    }, {
-      label: codReceita,
-      value: 'field2_name'
-    }, {
-      label: percentual,
-      value: 'field2_name'
-    }, {
-      label: cc,
-      value: 'field2_name'
-    }, {
-      label: ugCC,
-      value: 'field2_name'
-    }, {
-      label: ano,
-      value: 'field2_name'
-    }
-    , {
-      label: ug,
-      value: 'field2_name'
-    }]
-
-    async function appendToCSV(fields, res) {
-      const json2csv = new Parser({ fields: fields })
-      try {
-        const csv = json2csv.parse(fields) + '\n';
-        await fs.appendFileSync('liquidacao.csv', csv);
-        res.redirect('/cadastro')
-      } catch (error) {
-        console.log('error:', error.message)
-        res.status(500).send(error.message)
-      }
-    }
-
-    await appendToCSV(fields, res);
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    liquidacoes.push(liquidacao);
+    console.log(liquidacoes)
+    res.redirect('/index')
   }
 })
 
+app.get('/finalizacao', (req, res) => {
+  res.render('finalizacao', {liquidacoes});
+  function empty(array) {
+    array.length = 0;
+  }
+  empty(liquidacoes);
+})
 
 app.listen(port, () => {
   console.log(`App usando a porta ${port}`)
@@ -771,3 +251,4 @@ app.use((req, res) => {
   console.error(err.stack);
   res.status(500).send('Algo deu errado');
 });
+
