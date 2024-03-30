@@ -8,9 +8,9 @@ var { Parser } = require('json2csv')
 /* criar conexão com o bando de dados  */
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: 'bd',
-  user: 'root',
-  password: 'senha_root',
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
   database: 'natureza_despesa'
 });
 module.exports = pool;
@@ -32,7 +32,7 @@ let liquidacoes=[]
 // /* rota para a cadastrar novos itens */
 app.post('/index', async (req, res) => {
   
-  console.log(req.body);
+
   var situacao = 'DSP101';
   var contaEstoque = '115610100';
   var contaApagar = '213110400';
@@ -101,7 +101,7 @@ app.post('/index', async (req, res) => {
             return reject('Erro: ' + error.message)
           }
           var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + [resultado[0].descricao] + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + ' ' + referente + '\nEMPRESA ' + opcao
-          console.log(descricao)
+
           return resolve(descricao)
         });
       });
@@ -111,7 +111,7 @@ app.post('/index', async (req, res) => {
 
     let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
     liquidacoes.push(liquidacao);
-    console.log(liquidacoes)
+
     res.redirect('/index')
   }
 
@@ -126,7 +126,7 @@ app.post('/index', async (req, res) => {
             return reject('Erro: ' + error.message)
           }
           var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + [resultado[0].descricao] + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + '\nEMPRESA ' + opcao
-          console.log(descricao)
+
           return resolve(descricao)
         });
       });
@@ -135,7 +135,7 @@ app.post('/index', async (req, res) => {
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
     let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
     liquidacoes.push(liquidacao);
-    console.log(liquidacoes)
+
     res.redirect('/index')
   }
 
@@ -148,7 +148,7 @@ app.post('/index', async (req, res) => {
             return reject('Erro: ' + error.message)
           }
           var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + [resultado[0].descricao] + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + '\nEMPRESA ' + opcao
-          console.log(descricao)
+
           return resolve(descricao)
         });
       });
@@ -157,7 +157,7 @@ app.post('/index', async (req, res) => {
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
     let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
     liquidacoes.push(liquidacao);
-    console.log(liquidacoes)
+
     res.redirect('/index')
 
   }
@@ -172,7 +172,7 @@ app.post('/index', async (req, res) => {
             return reject('Erro: ' + error.message)
           }
           var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + 'MATERIAL DE ASSISTENCIA SOCIAL' + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + '\nEMPRESA ' + opcao
-          console.log(descricao)
+
           return resolve(descricao)
         });
       });
@@ -181,7 +181,7 @@ app.post('/index', async (req, res) => {
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
     let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
     liquidacoes.push(liquidacao);
-    console.log(liquidacoes)
+
     res.redirect('/index')
   };
 
@@ -195,7 +195,7 @@ app.post('/index', async (req, res) => {
             return reject('Erro: ' + error.message)
           }
           var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + 'MATERIAL DE ASSISTENCIA SOCIAL' + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + '\nEMPRESA ' + opcao
-          console.log(descricao)
+
           return resolve(descricao)
         });
       });
@@ -204,7 +204,7 @@ app.post('/index', async (req, res) => {
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
     let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
     liquidacoes.push(liquidacao);
-    console.log(liquidacoes)
+
     res.redirect('/index')
   }
 
@@ -217,7 +217,7 @@ app.post('/index', async (req, res) => {
             return reject('Erro: ' + error.message)
           }
           var descricao = 'APROPRIACAO DE ' + tipo + ' - ' + [resultado[0].descricao] + '\nNF DATA/NR: ' + nf + ' ' + formatteddataNf + '\nEMPRESA ' + opcao
-          console.log(descricao)
+
           return resolve(descricao)
         });
       });
@@ -226,7 +226,7 @@ app.post('/index', async (req, res) => {
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
     let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
     liquidacoes.push(liquidacao);
-    console.log(liquidacoes)
+    
     res.redirect('/index')
   }
 })
