@@ -27,17 +27,17 @@ app.use(express.static('public'));
 /* usar arquivos ejs como renderização */
 app.set('view engine', 'ejs');
 
-app.get('/index', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index');  
 })
 let liquidacoes=[]
 // /* rota para a cadastrar novos itens */
-app.post('/index', async (req, res) => {
+app.post('/', async (req, res) => {
   
 
   var situacao = 'DSP101';
-  var contaEstoque = '115610100';
-  var contaApagar = '213110400';
+  var contaEstoque = '1.1.5.6.1.01.00';
+  var contaApagar = '2.1.3.1.1.04.00';
   var tipo = req.body.tipo;
   var numero = req.body.numero;
   var tipoNf = req.body.tipoNF;
@@ -82,7 +82,7 @@ app.post('/index', async (req, res) => {
   //-------------------------SERVICO-------------------------------------
   if (req.body.tipo == 'SERVICO') {
     var situacao = 'DSP001';
-    var contaEstoque = '332310200';
+    var contaEstoque = '3.3.2.3.1.02.00';
     var ugCC = '160046';
     var cc = 'F020404S';
     var referente = req.body.referente;
@@ -93,8 +93,8 @@ app.post('/index', async (req, res) => {
     }
     var ano = '2024';
     var siorg = '30320'
-
-
+    var lf = req.body.lf;
+    var listaFatura = '2024LF000' + lf;
     function descrever(tipo, subitem, nf, formatteddataNf, opcao) {
       return new Promise(async (resolve, reject) => {
         let sql = 'select descricao from servico where id=?';
@@ -111,15 +111,15 @@ app.post('/index', async (req, res) => {
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
 
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
+    res.redirect('/')
 
-    res.redirect('/index')
   }
 
   if (req.body.tipo == 'MATERIAL PERMANENTE') {
     var situacao = 'DSP201';
-    var contaEstoque = '123110801';
+    var contaEstoque = '1.2.3.1.1.08.01';
     function descrever(tipo, subitem, nf, formatteddataNf, opcao) {
       return new Promise(async (resolve, reject) => {
         let sql = 'select descricao from permanente where id=?';
@@ -135,10 +135,10 @@ app.post('/index', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
-    res.redirect('/index')
+    res.redirect('/')
   }
 
   if (req.body.tipo == 'MATERIAL DE CONSUMO') {
@@ -157,15 +157,15 @@ app.post('/index', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
-    res.redirect('/index')
+    res.redirect('/')
 
   }
 
   if (req.body.tipo == 'MATERIAL DE PNAE') {
-    var contaEstoque = '115810301';
+    var contaEstoque = '1.1.5.8.1.03.01';
     function descrever(tipo, subitem, nf, formatteddataNf, opcao) {
       return new Promise(async (resolve, reject) => {
         let sql = 'select descricao from consumo where id=?';
@@ -181,14 +181,14 @@ app.post('/index', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
-    res.redirect('/index')
+    res.redirect('/')
   };
 
   if (req.body.tipo == 'MATERIAL DE COOPERATIVA (PNAE)') {
-    var contaEstoque = '115810301';
+    var contaEstoque = '1.1.5.8.1.03.01';
     function descrever(tipo, subitem, nf, formatteddataNf, opcao) {
       return new Promise(async (resolve, reject) => {
         let sql = 'select descricao from servico where id=?';
@@ -204,10 +204,10 @@ app.post('/index', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
-    res.redirect('/index')
+    res.redirect('/')
   }
 
   if (req.body.tipo == 'MATERIAL DE COOPERATIVA') {
@@ -226,10 +226,10 @@ app.post('/index', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
     
-    res.redirect('/index')
+    res.redirect('/')
   }
 })
 

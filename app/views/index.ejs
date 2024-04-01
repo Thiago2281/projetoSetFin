@@ -16,7 +16,7 @@
             <h2>Cadastro de liquidações</h2>
             <p class="lead">Inclua abaixo os dados da liquidação a ser cadastrado</p>
           </div>
-          <form method="POST" action="/index" class="row mx-auto pt-2" style="width: 900px;">
+          <form method="POST" action="/" class="row mx-auto pt-2" style="width: 900px;">
             <div class="row">
               <div class="col pt-2">
                 <div class="form-check">
@@ -61,7 +61,7 @@
             <div class="row" id="admDivCheck1" style="display:none;">   
               <div class="col pt-2">
                 <label for="percentual1" class="form-label">Percentual</label>
-                <input type="number" v-model="percentual1" name="percentual1" class="form-control" id="percentual1">
+                <input type="number" v-model="percentual1" name="percentual1" class="form-control" id="percentual1" step="0.01">
               </div>
               <div class="col pt-2">
                 <label for="valorliquido" class="form-label">Valor líquido</label>
@@ -83,6 +83,10 @@
                 <label for="referente" class="form-label">Ref:</label>
                 <input type="text" name="referente" class="form-control" placeholder="Ex: MAR/2024" id="referente">
               </div>
+              <div class="col pt-2">
+                <label for="lf" class="form-label">2024LF000</label>
+                <input type="text" name="lf" class="form-control" placeholder="000" id="lf" maxlength="3" minlength="0">
+              </div>
             </div>
             <!-- termino linha oculta -->
             <div class="row">  
@@ -93,8 +97,7 @@
               <div class="col pt-2">
                 <label for="tipoNF" class="form-label">Tipo NF</label>
                 <select id="tipoNF" name="tipoNF" id="tipoNF" class="form-select">
-                  <option selected>Escolha...</option>
-                  <option>NFe</option>
+                  <option selected>NFe</option>
                   <option>NFSe</option>
                   <option>Fat</option>
                 </select>
@@ -106,8 +109,8 @@
             </div>
             <div class="row">
               <div class="col pt-2">
-                <label for="valorBruto" class="form-label">Valor bruto (R$ XX,00)</label>
-                <input type="text" name="valorBruto" class="form-control" id="valorBruto">
+                <label for="valorBruto" class="form-label">Valor bruto</label>
+                <input type="text" name="valorBruto" class="form-control" id="valorBruto" placeholder="Ex.: 11,00">
               </div>
               <div class="col pt-2">
                 <label for="dataNF" class="form-label">Data NF</label>
