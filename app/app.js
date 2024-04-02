@@ -64,7 +64,7 @@ app.post('/', async (req, res) => {
   if (me < 10) me = '0' + me;
   var formatteddataVenc = dia + '/' + me + '/' + aaaa;
   var subitem = req.body.subitem;
-  if (subitem < 10) subitem = '0' + subitem;
+  // if (subitem < 10) subitem = '0' + subitem;
 
   var opcao = req.body.opcao;
   var favorecido = req.body.favorecido;
@@ -78,7 +78,12 @@ app.post('/', async (req, res) => {
   var percentual = req.body.percentual;
   var contrato = req.body.contrato;
   var ug = req.body.ugEmpenho;
-
+  var ugCC = 'xxx';
+  var cc = 'xxx';
+  var ano = 'xxx';
+  var listaFatura = 'xxx';
+  var mes1 = 'xxx'
+  var siorg = 'xxx'  
   //-------------------------SERVICO-------------------------------------
   if (req.body.tipo == 'SERVICO') {
     var situacao = 'DSP001';
