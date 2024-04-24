@@ -78,6 +78,8 @@ app.post('/', async (req, res) => {
   var percentual = req.body.percentual;
   var contrato = req.body.contrato;
   var ug = req.body.ugEmpenho;
+  var valorIss = 'xxx';
+  var percIss = 'xxx';
   var ugCC = 'xxx';
   var cc = 'xxx';
   var ano = 'xxx';
@@ -91,6 +93,8 @@ app.post('/', async (req, res) => {
     var ugCC = '160046';
     var cc = 'F020404S';
     var referente = req.body.referente;
+    var valorIss = req.body.valorISS;
+    var percIss = req.body.percISS;
     let dataHoje = new Date();
     var mes1 = dataHoje.getMonth() + 1;
     if (mes1 < 10) {
@@ -116,7 +120,7 @@ app.post('/', async (req, res) => {
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
 
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, percIss:percIss, situacao:situacao, valorIss:valorIss, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
     res.redirect('/')
 
@@ -140,7 +144,7 @@ app.post('/', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, percIss:percIss, situacao:situacao, valorIss:valorIss, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
     res.redirect('/')
@@ -162,7 +166,7 @@ app.post('/', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, percIss:percIss, situacao:situacao, valorIss:valorIss, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
     res.redirect('/')
@@ -186,7 +190,7 @@ app.post('/', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, percIss:percIss, situacao:situacao, valorIss:valorIss, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
     res.redirect('/')
@@ -209,7 +213,7 @@ app.post('/', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, percIss:percIss, situacao:situacao, valorIss:valorIss, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
 
     res.redirect('/')
@@ -231,7 +235,7 @@ app.post('/', async (req, res) => {
     }
 
     let descricao = await descrever(tipo, subitem, nf, formatteddataNf, opcao)
-    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, contaApagar:contaApagar, situacao:situacao, siorg:siorg, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
+    let liquidacao = {opcao:opcao, tipo:tipo, cnpj:cnpj, contrato:contrato, nf:nf, valorBruto:valorBruto, formatteddataNf:formatteddataNf, formatteddataAt:formatteddataAt, formatteddataVenc:formatteddataVenc, descricao:descricao, situacao:situacao,empenho:empenho, subitem:subitem, contaEstoque:contaEstoque, percIss:percIss, situacao:situacao, valorIss:valorIss, mes1:mes1, codRecolhimento:codRecolhimento, codReceita:codReceita, percentual:percentual,cc:cc, ugCC:ugCC, ano:ano, ug:ug, listaFatura:listaFatura};
     liquidacoes.push(liquidacao);
     
     res.redirect('/')

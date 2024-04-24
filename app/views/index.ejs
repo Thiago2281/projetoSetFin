@@ -98,6 +98,58 @@
                 <label for="cnpj" class="form-label">CNPJ</label>
                 <input type="text" name="cnpj" class="form-control" id="cnpj" maxlength="14" minlength="14">
               </div>
+              <div class="col pt-2">
+                <label for="tipoNF" class="form-label">Tipo NF</label>
+                <select id="tipoNF" name="tipoNF" id="tipoNF" class="form-select">
+                  <option selected>NFe</option>
+                  <option>NFSe</option>
+                  <option>Fat</option>
+                </select>
+              </div>
+              
+            </div>
+
+            <div class="row">  
+
+              <div class="col pt-2">
+                <label for="numero" class="form-label">Número NF</label>
+                <input type="text" name="numero" class="form-control" id="numero">
+              </div>
+              <div class="col pt-2">
+                <label for="valorBruto" class="form-label">Valor bruto</label>
+                <input type="text" name="valorBruto" class="form-control" id="valorBruto" placeholder="Ex.: 11,00">
+              </div>
+              <div class="col pt-2">
+                <label for="dataNF" class="form-label">Data NF</label>
+                <input type="date" name="dataNF" class="form-control" id="dataNF">
+              </div>
+              <div class="col pt-2">
+                <label for="dataAteste" class="form-label">Data Ateste NF</label>
+                <input type="date" name="dataAteste" class="form-control" id="dataAteste">
+              </div>
+              <div class="col pt-2">
+                <label for="dataVenc" class="form-label">Data Vencimento NF</label>
+                <input type="date" name="dataVenc" class="form-control" id="dataVenc">
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col pt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="iss" onchange="admSelectCheck2(this.select);" >
+                  <label class="form-check-label" for="iss">
+                    ISS a ser retido
+                  </label>           
+                </div>
+              </div>
+              <div class="col pt-2" id="admDivCheck2" style="display:none;">
+                <label for="valorISS" class="form-label">Valor ISS</label>
+                <input type="text" name="valorISS" class="form-control" id="valorISS" placeholder="Ex.: 11,00">
+              </div>
+              <div class="col pt-2" id="admDivCheck3" style="display:none;">
+                <label for="percISS" class="form-label">Percentual ISS</label>
+                <input type="text" name="percISS" class="form-control" id="percISS" placeholder="Ex.: 2,000">
+              </div>
               <div class="col pt-5">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="gridCheck1" onchange="admSelectCheck1(this.select);" >
@@ -105,6 +157,22 @@
                     Concessionária
                   </label>           
                 </div>
+              </div>
+            </div>
+            <!-- linha oculta -->
+            <div class="row" id="admDivCheck" style="display:none;">   
+              <div class="col pt-2">
+                <label for="codRecolhimento" class="form-label">Cod Recolhimento</label>
+                <input type="number" name="codRecolhimento" class="form-control" id="codRecolhimento" maxlength="4" minlength="4">
+              </div>
+              <div class="col pt-2">
+                <label for="codReceita" class="form-label">Cod Receita (17000)</label>
+                <input type="number" name="codReceita" class="form-control" id="codReceita" maxlength="5"
+                  minlength="5">
+              </div>
+              <div class="col pt-2">
+                <label for="percentual" class="form-label">Percentual</label>
+                <input type="text" name="percentual" class="form-control" id="percentual">
               </div>
             </div>
             <!-- linha oculta -->
@@ -135,73 +203,10 @@
               </div>
               <div class="col pt-2">
                 <label for="lf" class="form-label">2024LF000</label>
-                <input type="text" name="lf" class="form-control" placeholder="000" id="lf" maxlength="3" minlength="0">
+                <input type="text" name="lf" class="form-control" placeholder="000" id="lf" maxlength="3" minlength="3">
               </div>
             </div>
             <!-- termino linha oculta -->
-            <div class="row">  
-              <div class="col pt-2">
-                <label for="favorecido" class="form-label">Favorecido</label>
-                <input type="text" name="favorecido" class="form-control" id="favorecido">
-              </div>
-              <div class="col pt-2">
-                <label for="tipoNF" class="form-label">Tipo NF</label>
-                <select id="tipoNF" name="tipoNF" id="tipoNF" class="form-select">
-                  <option selected>NFe</option>
-                  <option>NFSe</option>
-                  <option>Fat</option>
-                </select>
-              </div>
-              <div class="col pt-2">
-                <label for="numero" class="form-label">Número NF</label>
-                <input type="text" name="numero" class="form-control" id="numero">
-              </div>
-              <div class="col pt-2">
-                <label for="test" class="form-label">Retém ISS:</label>
-                <select id="iss" name="iss" class="form-select" onchange="admSelectCheck2(this.select);">
-                  <option value="nao">Nao</option>
-                  <option value="Sim">Sim</option>
-                </select>
-              </div>
-              <div class="col pt-2" id="admDivCheck2" style="display:none;">
-                <label for="codRecolhimento" class="form-label">Cod Recolhimento</label>
-                <input type="number" name="codRecolhimento" class="form-control" id="codRecolhimento" maxlength="4" minlength="4">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col pt-2">
-                <label for="valorBruto" class="form-label">Valor bruto</label>
-                <input type="text" name="valorBruto" class="form-control" id="valorBruto" placeholder="Ex.: 11,00">
-              </div>
-              <div class="col pt-2">
-                <label for="dataNF" class="form-label">Data NF</label>
-                <input type="date" name="dataNF" class="form-control" id="dataNF">
-              </div>
-              <div class="col pt-2">
-                <label for="dataAteste" class="form-label">Data Ateste NF</label>
-                <input type="date" name="dataAteste" class="form-control" id="dataAteste">
-              </div>
-              <div class="col pt-2">
-                <label for="dataVenc" class="form-label">Data Vencimento NF</label>
-                <input type="date" name="dataVenc" class="form-control" id="dataVenc">
-              </div>
-            </div>
-            <!-- linha oculta -->
-            <div class="row" id="admDivCheck" style="display:none;">   
-              <div class="col pt-2">
-                <label for="codRecolhimento" class="form-label">Cod Recolhimento</label>
-                <input type="number" name="codRecolhimento" class="form-control" id="codRecolhimento" maxlength="4" minlength="4">
-              </div>
-              <div class="col pt-2">
-                <label for="codReceita" class="form-label">Cod Receita (17000)</label>
-                <input type="number" name="codReceita" class="form-control" id="codReceita" maxlength="5"
-                  minlength="5">
-              </div>
-              <div class="col pt-2">
-                <label for="percentual" class="form-label">Percentual</label>
-                <input type="text" name="percentual" class="form-control" id="percentual">
-              </div>
-            </div>
             <div class="row">
               <div class="col pt-2 mb-4 text-center">
 
@@ -281,17 +286,20 @@
   }
   function admSelectCheck2(nameSelect){
       if(nameSelect){
-          admOptionValue = document.getElementById("iss").value;
+          admOptionValue1 = document.getElementById("iss").value;
 
-          if(admOptionValue = "Sim"){
+          if(admOptionValue1 = "Iss a ser retido"){
               document.getElementById("admDivCheck2").style.display = "";
+              document.getElementById("admDivCheck3").style.display = "";
           }
           else{
               document.getElementById("admDivCheck2").style.display = "none";
+              document.getElementById("admDivCheck3").style.display = "none";
           }
       }
       else{
           document.getElementById("admDivCheck2").style.display = "none";
+          document.getElementById("admDivCheck3").style.display = "none";
       }
   }
   </script>
