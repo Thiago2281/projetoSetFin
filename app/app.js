@@ -82,8 +82,8 @@ app.post('/', async (req, res) => {
   var cc = 'xxx';
   var ano = 'xxx';
   var listaFatura = 'xxx';
-  var mes1 = 'xxx'
-  var siorg = 'xxx'  
+  var mes1 = 'xxx';
+  var siorg = 'xxx';  
   //-------------------------SERVICO-------------------------------------
   if (req.body.tipo == 'SERVICO') {
     var situacao = 'DSP001';

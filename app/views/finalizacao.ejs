@@ -13,13 +13,13 @@
       <section class="bg-light pt-4">
         <section id="contact">
           <div class="text-center">
-            <h2>Liquidações lancadas hoje</h2>
-            <p class="lead">Abaixo os dados das liquidacoes</p>
+            <h2>Liquidações lançadas hoje</h2>
+            <p class="lead">Abaixo os dados das liquidações</p>
             <table class="table table-hover" style="margin: 0 auto; width: 70%;">
               <thead class="table-dark">    
                   <tr>
                       <th style="width: 10%">CNPJ</th>
-                      <th style="width: 70%">Descricao</th>
+                      <th style="width: 70%">Descrição</th>
                       <th style="width: 10%">Valor Bruto</th>
                       <th style="width: 10%">UG</th>
                   </tr>
@@ -56,7 +56,7 @@ var data = <%- JSON.stringify(liquidacoes) %>
   const btnDownloadCsv = document.getElementById("btnDownloadCsv");
 
   btnDownloadCsv.addEventListener("click", () => {
-    downloadCsv("liquidacoes.csv", csvData);
+    downloadCsv("liquidacao.csv", csvData);
   });
 
   function downloadCsv(filename, csvContent) {
