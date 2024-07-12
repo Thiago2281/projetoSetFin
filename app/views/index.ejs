@@ -163,7 +163,7 @@
             <div class="row" id="admDivCheck" style="display:none;">   
               <div class="col pt-2">
                 <label for="codRecolhimento" class="form-label">Cod Recolhimento</label>
-                <input type="number" name="codRecolhimento" class="form-control" id="codRecolhimento" maxlength="4" minlength="4">
+                <input type="number" name="codRecolhimento" class="form-control" id="codRecolhimento" maxlength="4" minlength="4" onchange="checkCodRecolhimento()">
               </div>
               <div class="col pt-2">
                 <label for="codReceita" class="form-label">Cod Receita (17000)</label>
@@ -320,3 +320,28 @@
     }
   }).mount('#app')
   </script>
+<script>
+  function checkCodRecolhimento() {
+    var codRecolhimentoInput = document.getElementById('codRecolhimento');
+    var percentualInput = document.getElementById('percentual');
+    var codRecolhimentoValue = codRecolhimentoInput.value.trim();
+
+    switch (codRecolhimentoValue) {
+      case '6147':
+        percentualInput.value = '5,85';
+        break;
+      case '8863':
+        percentualInput.value = '4,65';
+        break;
+      case '6190':
+        percentualInput.value = '9,45';
+        break;
+      case '8739':
+        percentualInput.value = '1,24';
+        break;
+      default:
+        percentualInput.value = '';
+        break;
+    }
+  }
+</script>
