@@ -100,10 +100,10 @@ app.post('/', async (req, res) => {
     if (mes1 < 10) {
       var mes1 = '0' + mes1;
     }
-    var ano = '2024';
+    var ano = '2025';
     var siorg = '30320'
     var lf = req.body.lf;
-    var listaFatura = '2024LF000' + lf;
+    var listaFatura = '2025LF000' + lf;
     function descrever(tipo, subitem, nf, formatteddataNf, opcao) {
       return new Promise(async (resolve, reject) => {
         let sql = 'select descricao from servico where id=?';
